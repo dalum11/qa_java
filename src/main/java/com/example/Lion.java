@@ -2,14 +2,15 @@ package com.example;
 
 import java.util.List;
 
-public class Lion extends Feline{
+public class Lion{
 
     boolean hasMane;
 
-    private Catlike catlike;
+    private Feline feline;
 
-    public Lion(Catlike catlike, String sex) throws Exception {
-        this.catlike = catlike;
+
+    public Lion(Feline feline, String sex) throws Exception {
+        this.feline = feline;
         if ("Самец".equals(sex)) {
             hasMane = true;
         } else if ("Самка".equals(sex)) {
@@ -22,7 +23,7 @@ public class Lion extends Feline{
 
 
     public int getKittens() {
-        return catlike.getKittens();
+        return feline.getKittens();
     }
 
     public boolean doesHaveMane() {
@@ -30,6 +31,6 @@ public class Lion extends Feline{
     }
 
     public List<String> getFood() throws Exception {
-        return super.getFood("Хищник");
+        return feline.getFood("Хищник");
     }
 }

@@ -27,7 +27,8 @@ public class FelineTest {
     @Parameterized.Parameters
     public static Object[][] getTestData() {
         return new Object[][] {
-                {List.of("Животные", "Птицы", "Рыба"), "Кошачьи", 1, 3}
+                {List.of("Животные", "Птицы", "Рыба"), "Кошачьи", 1, 3},
+                {List.of("Животные", "Птицы", "Рыба"), "Кошачьи", 1, 0}
         };
     }
 

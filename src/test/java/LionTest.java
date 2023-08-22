@@ -9,12 +9,10 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
 import java.util.List;
-
-@RunWith(Parameterized.class)
 public class LionTest {
 
-    private List<String> food;
-    private int kittensCount;
+    public LionTest() throws Exception {
+    }
 
     @Before
     public void init() {
@@ -27,22 +25,11 @@ public class LionTest {
     @Spy
     Lion maleLion = new Lion(new Feline(), "Самец");
 
-    public LionTest(List<String> food, int kittensCount) throws Exception {
-        this.food = food;
-        this.kittensCount = kittensCount;
-    }
-
-    @Parameterized.Parameters
-    public static Object[][] getTestData() {
-        return new Object[][] {
-                {List.of("Животные", "Птицы", "Рыба"), 1}
-        };
-    }
 
     @Test
     public void checkFoodFemaleLion() throws Exception{
-        Assert.assertEquals("Ожидается другая еда" , food, femaleLion.getFood());
-        Assert.assertEquals("Ожидается другая еда" , food, maleLion.getFood());
+        Assert.assertEquals("Ожидается другая еда" , List.of("Животные", "Птицы", "Рыба"), femaleLion.getFood());
+        Assert.assertEquals("Ожидается другая еда" , List.of("Животные", "Птицы", "Рыба"), maleLion.getFood());
     }
 
     @Test
@@ -57,14 +44,17 @@ public class LionTest {
     public void checkGettingExceptionWithLionOtherSex(){
         try {
             Lion otherLion = new Lion(new Feline(), "Other");
+            Assert.fail("Должно выбрасываться исключение");
         } catch (Exception e) {
             System.out.println("Льва с таким полом не существует");
+            Assert.assertEquals("Сообщение об ошибке некорректно", e.getMessage(),
+                    "Используйте допустимые значения пола животного - самей или самка");
         }
     }
 
     @Test
     public void checkKittensCountByDefault() {
-        Assert.assertEquals("Ожидается другое количество котят", kittensCount, femaleLion.getKittens());
-        Assert.assertEquals("Ожидается другое количество котят", kittensCount ,maleLion.getKittens());
+        Assert.assertEquals("Ожидается другое количество котят", 1, femaleLion.getKittens());
+        Assert.assertEquals("Ожидается другое количество котят", 1 ,maleLion.getKittens());
     }
 }
